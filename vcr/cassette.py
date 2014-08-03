@@ -120,13 +120,22 @@ class Cassette(ContextDecorator):
         Get the response corresponding to a request, but only if it
         hasn't been played back before, and mark it as played
         '''
-        for index, response in self._responses(request):
+        responses = self._responses(request)
+        if not responses:
+            # The cassette doesn't contain the request asked for.
+            raise UnhandledHTTPRequestError(
+                "The cassette (%r) doesn't contain the request (%r) asked for"
+                % (self._path, request)
+            )
+
+        for index, response in responses:
             if self.play_counts[index] == 0:
                 self.play_counts[index] += 1
                 return response
-        # The cassette doesn't contain the request asked for.
+
+        # The cassette has a response, but it has already been played
         raise UnhandledHTTPRequestError(
-            "The cassette (%r) doesn't contain the request (%r) asked for"
+            "The cassette (%r) contains a response for the request (%r) asked for, but it has already been played."
             % (self._path, request)
         )
 
