@@ -213,6 +213,7 @@ class VCRConnection:
             response = self.cassette.play_response(self._vcr_request)
             return VCRHTTPResponse(response)
         else:
+            # Cassette can't be written and already contains a response
             if self.cassette.write_protected and self.cassette._filter_request(self._vcr_request):
                 raise CannotOverwriteExistingCassetteException(
                     "Can't overwrite existing cassette (%r) in "

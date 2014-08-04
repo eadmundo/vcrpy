@@ -4,7 +4,6 @@ class CannotOverwriteExistingCassetteException(Exception):
 
 class UnhandledHTTPRequestError(KeyError):
     '''
-    Raised when a cassette does not c
-    ontain the request we want
+    Raised when a cassette does not contain the request we want
     '''
     pass
