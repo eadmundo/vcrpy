@@ -19,4 +19,4 @@ def test_making_extra_request_raises_exception(tmpdir):
         assert urlopen('http://httpbin.org/status/201').getcode() == 201
         with pytest.raises(UnhandledHTTPRequestError) as excinfo:
             urlopen('http://httpbin.org/status/200')
-        assert 'has already been played' in excinfo.value.message
+        assert 'has already been played' in str(excinfo.value)
