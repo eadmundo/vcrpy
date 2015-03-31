@@ -300,7 +300,7 @@ parameters to filter.
 
 ```python
 with my_vcr.use_cassette('test.yml', filter_post_data_parameters=['client_secret']):
-    requests.post('http://api.com/postdata', data={'api_key': 'secretstring'})
+    requests.post('http://api.com/postdata', data={'client_secret': 'secretstring'})
 ```
 
 ### Custom Request filtering
